@@ -1,0 +1,3 @@
+/home/carrotcake/documents/projects/personal/SnakeGame/build/CMakeFiles/snake.dir
+/home/carrotcake/documents/projects/personal/SnakeGame/build/CMakeFiles/edit_cache.dir
+/home/carrotcake/documents/projects/personal/SnakeGame/build/CMakeFiles/rebuild_cache.dir
