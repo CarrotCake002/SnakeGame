@@ -25,7 +25,9 @@ class Game {
         void resetMap();
         void displayMapInTerminal(void);
 
-        void update(Direction direction);
+        bool checkWallCollision(void);
+
+        bool update(Direction direction);
         void updateMap(void);
 
         std::vector<std::vector<TileType>> map;

@@ -47,12 +47,23 @@ void Game::updateMap(void) {
 
 }
 
-void Game::update(Direction direction) {
+bool Game::checkWallCollision(void) {
+    sf::Vector2i head = this->snake.getHead();
+    if (head.x == 0  || head.y == 0 || head.x == this->map.size() - 1 || head.y == this->map[0].size() - 1)
+        return true;
+    return false;
+}
+
+bool Game::update(Direction direction) {
     if (this->clock.getElapsedTime().asMilliseconds() >= 200) {
+        this->snake.setDirection(direction);
         this->snake.move(direction);
+        if (checkWallCollision())
+            return false;
         this->updateMap();
         std::cout << std::endl;
         this->displayMapInTerminal();
         this->clock.restart();
     }
+    return true;
 }

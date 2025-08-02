@@ -25,6 +25,10 @@ void SnakeBody::move(const Direction dir) {
     }
 }
 
+void SnakeBody::setDirection(Direction dir) {
+    this->direction = dir;
+}
+
 sf::Vector2i SnakeBody::getSnakeSegment(int segment) {
     return this->snakePosition[segment];
 }

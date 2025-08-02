@@ -18,6 +18,8 @@ class SnakeBody {
 
         void move(const Direction direction);
 
+        void setDirection(Direction direction);
+
         sf::Vector2i getHead(void);
         Direction getDirection(void);
         int getSize(void);

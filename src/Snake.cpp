@@ -19,15 +19,28 @@ Snake::~Snake(void) {
 void Snake::handleKeyPress(sf::Event event) {
     if (event.type == sf::Event::Closed)
         this->window->close();
-    if (event.type == sf::Event::KeyPressed) { // CHANGE THIS TO ALWAYS UPDATE
-        this->game->update(this->snakeDirection);
-        this->renderer->display(this->game);
+    if (event.type == sf::Event::KeyPressed) {
+        switch (event.key.code) {
+            case sf::Keyboard::W:
+                this->snakeDirection = Direction::Up;
+                break;
+            case sf::Keyboard::S:
+                this->snakeDirection = Direction::Down;
+                break;
+            case sf::Keyboard::A:
+                this->snakeDirection = Direction::Left;
+                break;
+            case sf::Keyboard::D:
+                this->snakeDirection = Direction::Right;
+                break;
+        }
     }
 }
 
 void Snake::run(void) {
     sf::Event event;
     Direction dir;
+    bool runGame = true;
 
     this->game->displayMapInTerminal();
 
@@ -35,5 +48,8 @@ void Snake::run(void) {
         while (this->window->pollEvent(event)) {
             this->handleKeyPress(event);
         }
+        if (!this->game->update(this->snakeDirection))
+            this->window->close();
+        this->renderer->display(this->game);
     }
 }
