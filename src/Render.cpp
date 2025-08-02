@@ -8,7 +8,13 @@ Render::~Render() {
 
 }
 
-void Render::display(void) {
-    window->clear(sf::Color::Black);
-    window->display();
+void Render::display(Game *game) {
+    for (int i; i < game->map.size(); i++) {
+        for (int j; j < game->map[i].size(); i++) {
+            std::cout << game->map[i][j];
+        }
+        std::cout << std::endl;
+    }
+    //window->clear(sf::Color::Black);
+    //window->display();
 }

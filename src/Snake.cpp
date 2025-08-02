@@ -1,9 +1,13 @@
 #include "../include/Snake.hpp"
 
 Snake::Snake(void) {
-    this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "Snake");
+    int mapX = 20;
+    int mapY = 20;
+
+    this->snakeDirection = Direction::Up;
+    this->window = new sf::RenderWindow(sf::VideoMode(mapX * 32, mapY * 32), "Snake");
     this->renderer = new Render(window);
-    this->game = new Game();
+    this->game = new Game(mapX, mapY);
 }
 
 Snake::~Snake(void) {
@@ -12,15 +16,24 @@ Snake::~Snake(void) {
     delete this->renderer;
 }
 
+void Snake::handleKeyPress(sf::Event event) {
+    if (event.type == sf::Event::Closed)
+        this->window->close();
+    if (event.type == sf::Event::KeyPressed) { // CHANGE THIS TO ALWAYS UPDATE
+        this->game->update(this->snakeDirection);
+        this->renderer->display(this->game);
+    }
+}
+
 void Snake::run(void) {
     sf::Event event;
+    Direction dir;
+
+    this->game->displayMapInTerminal();
 
     while (this->window->isOpen()) {
         while (this->window->pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                this->window->close();
-            this->game->update();
-            this->renderer->display();
+            this->handleKeyPress(event);
         }
     }
 }

@@ -1,18 +1,37 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "Render.hpp"
+#include "SnakeBody.hpp"
+
 #include <iostream>
+#include <vector>
+#include <deque>
+#include <SFML/Graphics.hpp>
+
+enum TileType {
+    EmptyTile,
+    Wall,
+    Food,
+    SnakeHead,
+    SnakeTorso,
+    SnakeTail
+};
 
 class Game {
     public:
-        Game();
+        Game(int cols, int rows);
         ~Game();
 
-        void update(void);
+        void resetMap();
+        void displayMapInTerminal(void);
 
+        void update(Direction direction);
+        void updateMap(void);
+
+        std::vector<std::vector<TileType>> map;
     private:
         sf::Clock clock;
+        SnakeBody snake;
 };
 
 #endif // GAME_HPP

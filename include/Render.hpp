@@ -3,13 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "Game.hpp"
 
 class Render {
     public:
         Render(sf::RenderWindow *window);
         ~Render();
 
-        void display();
+        void display(Game *game);
     private:
         sf::RenderWindow *window;
 };
