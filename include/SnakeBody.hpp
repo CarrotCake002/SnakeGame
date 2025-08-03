@@ -17,6 +17,7 @@ class SnakeBody {
         ~SnakeBody() = default;
 
         void move(const Direction direction);
+        void increaseSize(void);
 
         void setDirection(Direction direction);
 
@@ -27,6 +28,7 @@ class SnakeBody {
     
     private:
         std::deque<sf::Vector2i> snakePosition;
+        sf::Vector2i prevTailPosition;
         Direction direction;
         int size;
 };
