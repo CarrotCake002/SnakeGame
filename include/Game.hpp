@@ -30,6 +30,7 @@ class Game {
 
         bool checkWallCollision(void);
         void checkEatsFood(void);
+        bool checkBodyCollision(void);
 
         bool update(Direction direction);
         void updateMap(void);

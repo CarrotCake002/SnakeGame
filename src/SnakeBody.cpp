@@ -5,25 +5,26 @@ SnakeBody::SnakeBody(int cols, int rows) {
     this->size = 1;
 }
 
+bool SnakeBody::checkDirectionOverlap(const Direction dir) {
+    if ((dir == Direction::Up && this->prevDirection == Direction::Down)
+    || (dir == Direction::Down && this->prevDirection == Direction::Up)
+    || (dir == Direction::Right && this->prevDirection == Direction::Left)
+    || (dir == Direction::Left && this->prevDirection == Direction::Right))
+        return true;
+    return false;
+}
+
 void SnakeBody::move(const Direction dir) {
     sf::Vector2i prevSegmentPos = this->snakePosition[0];
     sf::Vector2i nextSegmentPos;
-    this->prevTailPosition = this->snakePosition[this->snakePosition.size() - 1];
 
-    switch (dir) {
-        case Direction::Up:
-        this->snakePosition[0].x -= 1;
-        break;
-        case Direction::Down:
-        this->snakePosition[0].x += 1;
-        break;
-        case Direction::Left:
-        this->snakePosition[0].y -= 1;
-        break;
-        case Direction::Right:
-        this->snakePosition[0].y += 1;
-        break;
+    if (!checkDirectionOverlap(dir)) {
+        this->snakePosition[0] += directionOffsets[dir];
+        this->prevDirection = dir;
+    } else {
+        this->snakePosition[0] += directionOffsets[this->prevDirection];
     }
+
     for (int i = 1; i < this->snakePosition.size(); i++) {
         nextSegmentPos = this->snakePosition[i];
         this->snakePosition[i] = prevSegmentPos;

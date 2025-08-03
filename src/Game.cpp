@@ -51,7 +51,6 @@ void Game::updateMap(void) {
     sf::Vector2i segment;
 
     this->resetMap();
-    std::cout << snake.getSize() << std::endl;
     for (int i = 0; i < this->snake.getSize(); i++) {
         segment = this->snake.getSnakeSegment(i);
         if (i == 0)
@@ -76,6 +75,15 @@ void Game::spawnFood(void) {
     }
 }
 
+bool Game::checkBodyCollision(void) {
+    for (int i = 1; i < this->snake.getSize(); i++) {
+        if (this->snake.getHead() == this->snake.getSnakeSegment(i))
+            return true;
+    }
+    return false;
+}
+
+
 bool Game::checkWallCollision(void) {
     sf::Vector2i head = this->snake.getHead();
     if (head.x == 0  || head.y == 0 || head.x == this->map.size() - 1 || head.y == this->map[0].size() - 1)
@@ -94,8 +102,8 @@ bool Game::update(Direction direction) {
     if (this->clock.getElapsedTime().asMilliseconds() >= 200) {
         this->snake.setDirection(direction);
         this->snake.move(direction);
-        checkEatsFood();
-        if (checkWallCollision())
+        this->checkEatsFood();
+        if (this->checkBodyCollision() || this->checkWallCollision())
             return false;
         this->updateMap();
         std::cout << std::endl;
